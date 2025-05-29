@@ -63,7 +63,7 @@ applyBtn.onclick = async () => {
     }
 
     try {
-        const res = await fetch("http://127.0.0.1:8000/aplicar-ecualizador", {
+        const res = await fetch("https://voz-backend.onrender.com/", {
             method: "POST",
             body: formData
         });
@@ -72,7 +72,7 @@ applyBtn.onclick = async () => {
 
         if (res.ok) {
             status.textContent = "✅ Procesado correctamente.";
-            audioProcesado.src = "http://127.0.0.1:8000/audio-procesado?" + Date.now();
+            audioProcesado.src = "https://voz-backend.onrender.com/" + Date.now();
         } else {
             status.textContent = "❌ Error: " + result.error;
         }
@@ -85,7 +85,7 @@ applyBtn.onclick = async () => {
 // Funcionalidad para reiniciar los deslizadores y el estado del ecualizador
 resetBtn.onclick = async () => {
     try {
-        const res = await fetch("http://127.0.0.1:8000/reiniciar", {
+        const res = await fetch("https://voz-backend.onrender.com/", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
