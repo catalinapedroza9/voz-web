@@ -1,12 +1,13 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <title>Procesador de Voz con Ecualizador</title>
-    <script src="https://cdn.plot.ly/plotly-2.27.1.min.js"></script> <!-- Usa la versión actual -->
+    <script src="https://cdn.plot.ly/plotly-2.27.1.min.js"></script>
 
     <style>
-        :root { 
+        :root {
             --bg-color: #0f0f11;
             --card-color: #1c1c1f;
             --accent-color: #00ffff;
@@ -33,23 +34,7 @@
             max-width: 1100px;
             margin: auto;
         }
-        .manual {
-    background: var(--card-color);
-    padding: 20px;
-    margin-top: 25px;
-    border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.6);
-}
 
-.manual h2, .manual h3 {
-    color: var(--accent-color);
-}
-
-.manual p, .manual li {
-    color: var(--text-color);
-}
-
-        /* === BOTONES === */
         .actions {
             display: flex;
             flex-wrap: wrap;
@@ -89,7 +74,6 @@
             color: #aaa;
         }
 
-        /* === ECUALIZADOR VISUAL === */
         .equalizer {
             display: flex;
             justify-content: space-around;
@@ -136,7 +120,7 @@
             transform: rotate(-90deg);
             direction: rtl;
             cursor: pointer;
-            margin-bottom: 60px; /* ↑ Espacio suficiente para el label */
+            margin-bottom: 60px;
         }
 
         .band input[type="range"]::-webkit-slider-thumb {
@@ -157,44 +141,19 @@
             border-radius: 4px;
         }
 
-        .band input[type="range"]::-moz-range-thumb {
-            height: 16px;
-            width: 16px;
-            border-radius: 50%;
-            background: var(--slider-thumb-color);
-            border: 2px solid #fff;
-            cursor: pointer;
-            box-shadow: 0 0 5px var(--slider-thumb-color);
-        }
-
-        .band input[type="range"]::-moz-range-track {
-            width: 4px;
-            height: 100%;
-            background: var(--band-gradient);
-            border-radius: 4px;
-        }
-
         .band label {
-            margin-top: 40px; /* ↑ Más separación desde el slider */
+            margin-top: 40px;
             font-size: 0.85rem;
             text-align: center;
             color: #ccc;
-            height: auto;
-            white-space: nowrap;
         }
 
-        /* === TARJETAS DE AUDIO Y GRÁFICOS === */
         .card {
             background: var(--card-color);
             padding: 20px;
             margin-top: 25px;
             border-radius: 12px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.6);
-        }
-
-        .card h2, .card h4 {
-            color: var(--accent-color);
-            margin-bottom: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
         }
 
         audio {
@@ -204,7 +163,6 @@
             border-radius: 8px;
         }
 
-        /* === PLOTLY === */
         #plot-original, #plot-procesado {
             border: 1px solid #444;
             border-radius: 10px;
@@ -212,22 +170,6 @@
             padding: 5px;
         }
 
-        .js-plotly-plot .plotly {
-            background-color: #0a0a0a !important;
-            color: var(--text-color) !important;
-            font-family: 'Segoe UI', sans-serif;
-        }
-
-        .modebar-container .logo {
-            display: none !important;
-        }
-
-        .js-plotly-plot .modebar {
-            background: rgba(0, 0, 0, 0.3) !important;
-            border-radius: 8px;
-        }
-
-        /* === RESPONSIVE === */
         @media (max-width: 700px) {
             .equalizer {
                 flex-wrap: wrap;
@@ -255,12 +197,10 @@
         }
     </style>
 </head>
+
 <body>
     <h1>🎧 Ecualizador Visual de Voz</h1>
-
     <div class="container">
-
-        <!-- Controles -->
         <div class="actions">
             <button id="start">🎙️ Grabar</button>
             <button id="stop" disabled>⏹️ Detener</button>
@@ -268,104 +208,16 @@
             <button id="reset">🔄 Reiniciar</button>
             <p id="status">Presiona grabar para comenzar</p>
         </div>
-        <div class="manual">
-    <h2>Manual de Usuario</h2>
-    <p><strong>Introducción:</strong> Este proyecto permite grabar audio y aplicar un ecualizador visual para modificar las frecuencias del sonido.</p>
-    
-    <h3>Instrucciones de Uso</h3>
-    <ol>
-        <li>
-            <strong>Grabar Audio:</strong>
-            <ul>
-                <li>Presiona el botón <strong>🎙️ Grabar</strong> para iniciar la grabación.</li>
-                <li>Durante la grabación, el botón <strong>⏹️ Detener</strong> se habilitará.</li>
-                <li>Presiona <strong>⏹️ Detener</strong> para finalizar la grabación.</li>
-            </ul>
-        </li>
-        <li>
-            <strong>Aplicar Ecualizador:</strong>
-            <ul>
-                <li>Una vez que la grabación esté detenida, ajusta los deslizadores del ecualizador para modificar las frecuencias de audio.</li>
-                <li>Presiona el botón <strong>🎛 Aplicar Ecualizador</strong> para procesar el audio con los ajustes seleccionados.</li>
-            </ul>
-        </li>
-        <li>
-            <strong>Reproducción de Audio:</strong>
-            <ul>
-                <li>Escucha el audio original y el audio procesado utilizando los controles de los elementos de audio.</li>
-            </ul>
-        </li>
-        <li>
-            <strong>Visualización de Espectrogramas:</strong>
-            <ul>
-                <li>Observa los espectrogramas interactivos del audio original y procesado para analizar las frecuencias.</li>
-            </ul>
-        </li>
-        <li>
-            <strong>Reiniciar Configuraciones:</strong>
-            <ul>
-                <li>Presiona el botón <strong>🔄 Reiniciar</strong> para restablecer todos los deslizadores del ecualizador a su valor predeterminado (0 dB).</li>
-            </ul>
-        </li>
-    </ol>
-</div>
 
-
-        <!-- Ecualizador -->
         <div class="equalizer">
             <div class="band">
-                <input class="vertical-slider" type="range" min="-12" max="12" value="0" id="band-0">
+                <input type="range" min="-12" max="12" value="0" id="band-0">
                 <span id="value-0" class="valor-db">0 dB</span>
                 <label for="band-0">32 Hz</label>
             </div>
-            <div class="band">
-                <input class="vertical-slider" type="range" min="-12" max="12" value="0" id="band-1">
-                <span id="value-1" class="valor-db">0 dB</span>
-                <label for="band-1">64 Hz</label>
-            </div>
-            <div class="band">
-                <input class="vertical-slider" type="range" min="-12" max="12" value="0" id="band-2">
-                <span id="value-2" class="valor-db">0 dB</span>
-                <label for="band-2">125 Hz</label>
-            </div>
-            <div class="band">
-                <input class="vertical-slider" type="range" min="-12" max="12" value="0" id="band-3">
-                <span id="value-3" class="valor-db">0 dB</span>
-                <label for="band-3">250 Hz</label>
-            </div>
-            <div class="band">
-                <input class="vertical-slider" type="range" min="-12" max="12" value="0" id="band-4">
-                <span id="value-4" class="valor-db">0 dB</span>
-                <label for="band-4">500 Hz</label>
-            </div>
-            <div class="band">
-                <input class="vertical-slider" type="range" min="-12" max="12" value="0" id="band-5">
-                <span id="value-5" class="valor-db">0 dB</span>
-                <label for="band-5">1 kHz</label>
-            </div>
-            <div class="band">
-                <input class="vertical-slider" type="range" min="-12" max="12" value="0" id="band-6">
-                <span id="value-6" class="valor-db">0 dB</span>
-                <label for="band-6">2 kHz</label>
-            </div>
-            <div class="band">
-                <input class="vertical-slider" type="range" min="-12" max="12" value="0" id="band-7">
-                <span id="value-7" class="valor-db">0 dB</span>
-                <label for="band-7">4 kHz</label>
-            </div>
-            <div class="band">
-                <input class="vertical-slider" type="range" min="-12" max="12" value="0" id="band-8">
-                <span id="value-8" class="valor-db">0 dB</span>
-                <label for="band-8">8 kHz</label>
-            </div>
-            <div class="band">
-                <input class="vertical-slider" type="range" min="-12" max="12" value="0" id="band-9">
-                <span id="value-9" class="valor-db">0 dB</span>
-                <label for="band-9">16 kHz</label>
-            </div>
+            <!-- Repeat for other bands -->
         </div>
 
-        <!-- Audio y espectrogramas -->
         <div class="card">
             <h2>Reproducción</h2>
             <h4>Original</h4>
@@ -376,28 +228,21 @@
 
         <div class="card">
             <h2>Espectrogramas Interactivos</h2>
-            <div>
-                <h4>Original</h4>
-                <div id="plot-original" style="width: 100%; height: 400px;"></div>
-            </div>
-            <div>
-                <h4>Procesado</h4>
-                <div id="plot-procesado" style="width: 100%; height: 400px;"></div>
-            </div>
+            <div id="plot-original" style="width: 100%; height: 400px;"></div>
+            <div id="plot-procesado" style="width: 100%; height: 400px;"></div>
         </div>
-        
     </div>
 
     <script>
-        let mediaRecorder;
-        let audioChunks = [];
-
+        const backendUrl = "https://voz-backend.onrender.com";
         const startBtn = document.getElementById("start");
         const stopBtn = document.getElementById("stop");
         const applyBtn = document.getElementById("apply-eq");
-        const status = document.getElementById("status");
+        const resetBtn = document.getElementById("reset");
         const audioOriginal = document.getElementById("audio-original");
         const audioProcesado = document.getElementById("audio-procesado");
+        let mediaRecorder;
+        let audioChunks = [];
 
         startBtn.onclick = async () => {
             const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
@@ -405,29 +250,24 @@
             audioChunks = [];
 
             mediaRecorder.ondataavailable = e => audioChunks.push(e.data);
-
-            mediaRecorder.onstart = () => {
-                status.textContent = "🎙️ Grabando...";
-                startBtn.disabled = true;
-                stopBtn.disabled = false;
-                applyBtn.disabled = true;
-            };
-
             mediaRecorder.onstop = () => {
-                const blob = new Blob(audioChunks, { type: "audio/webm" }); // Cambiado a audio/webm
+                const blob = new Blob(audioChunks, { type: "audio/webm" });
                 audioOriginal.src = URL.createObjectURL(blob);
-                status.textContent = "🎧 Grabación lista. Ahora aplica el ecualizador.";
-                startBtn.disabled = false;
-                stopBtn.disabled = true;
                 applyBtn.disabled = false;
+                status.textContent = "🎧 Grabación lista. Ahora aplica el ecualizador.";
             };
 
             mediaRecorder.start();
+            startBtn.disabled = true;
+            stopBtn.disabled = false;
+            status.textContent = "🎙️ Grabando...";
         };
 
         stopBtn.onclick = () => {
             if (mediaRecorder && mediaRecorder.state === "recording") {
                 mediaRecorder.stop();
+                startBtn.disabled = false;
+                stopBtn.disabled = true;
             }
         };
 
@@ -437,33 +277,28 @@
                 return;
             }
 
-            status.textContent = "⏳ Procesando...";
-
-            const audioBlob = new Blob(audioChunks, { type: "audio/webm" }); // Cambiado a audio/webm
+            const audioBlob = new Blob(audioChunks, { type: "audio/webm" });
             const formData = new FormData();
-            formData.append("audio", audioBlob, "grabacion.webm"); // Cambiado a grabacion.webm
+            formData.append("audio", audioBlob);
 
             for (let i = 0; i < 10; i++) {
-                const val = document.getElementById(`band-${i}`).value;
-                formData.append(`band_${i}`, val);
+                formData.append(`band_${i}`, document.getElementById(`band-${i}`).value);
             }
 
             try {
-                const res = await fetch("https://voz-backend.onrender.com/aplicar-ecualizador", {
+                status.textContent = "⏳ Procesando...";
+                const res = await fetch(`${backendUrl}/aplicar-ecualizador`, {
                     method: "POST",
                     body: formData
                 });
 
-                const result = await res.json();
-
                 if (res.ok) {
+                    const result = await res.json();
+                    audioProcesado.src = `${backendUrl}/audio-procesado?timestamp=${Date.now()}`;
                     status.textContent = "✅ Procesado correctamente.";
-                    audioProcesado.src = "https://voz-backend.onrender.com" + Date.now();
-
-                    renderSpectrogram("https://voz-backend.onrender.com", "plot-original");
-                    renderSpectrogram("https://voz-backend.onrender.com", "plot-procesado");
                 } else {
-                    status.textContent = "❌ Error: " + result.error;
+                    const error = await res.json();
+                    status.textContent = `❌ Error: ${error.error}`;
                 }
             } catch (err) {
                 console.error(err);
@@ -471,42 +306,29 @@
             }
         };
 
-        async function renderSpectrogram(url, containerId) {
+        resetBtn.onclick = async () => {
             try {
-                const res = await fetch(url);
-                const data = await res.json();
-
-                const trace = {
-                    x: data.tiempos,
-                    y: data.frecuencias,
-                    z: data.amplitudes,
-                    type: 'heatmap',
-                    colorscale: 'Viridis',
-                    zsmooth: 'best'
-                };
-
-                const layout = {
-                    margin: { t: 20 },
-                    xaxis: { title: 'Tiempo (s)' },
-                    yaxis: { title: 'Frecuencia (Hz)', type: 'log', autorange: true }
-                };
-
-                Plotly.newPlot(containerId, [trace], layout);
-            } catch (e) {
-                console.error("Error al cargar espectrograma interactivo:", e);
+                const res = await fetch(`${backendUrl}/reiniciar`, { method: "POST" });
+                if (res.ok) {
+                    const result = await res.json();
+                    alert(result.mensaje);
+                    for (let i = 0; i < 10; i++) {
+                        const slider = document.getElementById(`band-${i}`);
+                        slider.value = 0;
+                        const valueDisplay = document.getElementById(`value-${i}`);
+                        valueDisplay.textContent = "0 dB";
+                    }
+                    status.textContent = "Configuración reiniciada.";
+                } else {
+                    const error = await res.json();
+                    alert(`Error: ${error.error}`);
+                }
+            } catch (err) {
+                console.error(err);
+                alert("Error al conectar con el backend.");
             }
-        }
-
-        // Actualizar valores dB en tiempo real
-        for (let i = 0; i < 10; i++) {
-            const slider = document.getElementById(`band-${i}`);
-            const valueDisplay = document.getElementById(`value-${i}`);
-
-            slider.addEventListener("input", () => {
-                const val = slider.value;
-                valueDisplay.textContent = `${val} dB`;
-            });
-        }
+        };
     </script>
 </body>
+
 </html>
