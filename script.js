@@ -72,7 +72,7 @@ applyBtn.onclick = async () => {
 
         if (res.ok) {
             status.textContent = "✅ Procesado correctamente.";
-            audioProcesado.src = "https://voz-backend.onrender.com/audio-procesado?" + Date.now();
+            audioProcesado.src = "https://voz-backend.onrender.com/audio-procesado" + Date.now();
         } else {
             status.textContent = "❌ Error: " + result.error;
         }
