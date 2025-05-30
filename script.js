@@ -86,12 +86,12 @@ applyBtn.onclick = async () => {
 resetBtn.onclick = async () => {
     try {
         const res = await fetch("https://voz-backend.onrender.com/", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            }
-        });
-
+    method: "POST",
+    headers: {
+        "Content-Type": "application/json"
+    },
+    body: JSON.stringify({}) // 🛠️ esta línea es clave
+});
         const result = await res.json();
         alert(result.mensaje || result.error);
 
