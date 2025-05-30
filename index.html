@@ -460,8 +460,8 @@ Html: <!DOCTYPE html>
                     status.textContent = "✅ Procesado correctamente.";
                     audioProcesado.src = "https://voz-backend.onrender.com/audio_procesado.wav?ts=" + Date.now();
 
-                    renderSpectrogram("https://voz-backend.onrender.com/espectograma_original?ts=", "plot-original");
-                    renderSpectrogram("https://voz-backend.onrender.com/espectograma_procesado?ts=", "plot-procesado");
+                    renderSpectrogram("https://voz-backend.onrender.com/spectograma_original?ts=", "plot-original");
+                    renderSpectrogram("https://voz-backend.onrender.com/spectograma_procesado?ts=", "plot-procesado");
                 } else {
                     status.textContent = "❌ Error: " + result.error;
                 }
