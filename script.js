@@ -63,7 +63,7 @@ applyBtn.onclick = async () => {
     }
 
     try {
-        const res = await fetch("https://voz-backend.onrender.com/", {
+        const res = await fetch("https://voz-backend.onrender.com/aplicar-ecualizador", {
             method: "POST",
             body: formData
         });
@@ -72,7 +72,7 @@ applyBtn.onclick = async () => {
 
         if (res.ok) {
             status.textContent = "✅ Procesado correctamente.";
-            audioProcesado.src = "https://voz-backend.onrender.com/" + Date.now();
+            audioProcesado.src = "https://voz-backend.onrender.com/audio-procesado?" + Date.now();
         } else {
             status.textContent = "❌ Error: " + result.error;
         }
