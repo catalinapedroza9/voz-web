@@ -458,10 +458,10 @@
 
                 if (res.ok) {
                     status.textContent = "✅ Procesado correctamente.";
-                    audioProcesado.src = "http://127.0.0.1:8000/audio-procesado?" + Date.now();
+                    audioProcesado.src = "https://voz-backend.onrender.com" + Date.now();
 
-                    renderSpectrogram("http://127.0.0.1:8000/datos-spectrograma-original", "plot-original");
-                    renderSpectrogram("http://127.0.0.1:8000/datos-spectrograma-procesado", "plot-procesado");
+                    renderSpectrogram("https://voz-backend.onrender.com", "plot-original");
+                    renderSpectrogram("https://voz-backend.onrender.com", "plot-procesado");
                 } else {
                     status.textContent = "❌ Error: " + result.error;
                 }
