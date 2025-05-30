@@ -63,7 +63,7 @@ applyBtn.onclick = async () => {
     }
 
     try {
-        const res = await fetch("https://voz-backend.onrender.com/aplicar-ecualizador", {
+        const res = await fetch("https://voz-backend.onrender.com/aplicar-ecualizador?", {
             method: "POST",
             body: formData
         });
