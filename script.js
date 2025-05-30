@@ -85,7 +85,7 @@ applyBtn.onclick = async () => {
 // Funcionalidad para reiniciar los deslizadores y el estado del ecualizador
 resetBtn.onclick = async () => {
     try {
-        const res = await fetch("https://voz-backend.onrender.com/", {
+        const res = await fetch("https://voz-backend.onrender.com/reiniciar", {
     method: "POST",
     headers: {
         "Content-Type": "application/json"
